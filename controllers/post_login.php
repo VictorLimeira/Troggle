@@ -13,25 +13,25 @@ $message = "";
 
 $users = App::get('database')->queryAll('user', 'User');
 
-foreach ($users as $user) {
-    if ($user->username === $username){
-        if ($user->password === $password){
-            $email = $user->email;
-            session_start();
-            $_SESSION["logged"]=[
-                'UserName' => $user->username,
-                'Email' => $user->email,
-                'Password' => $user->password
-            ];
-            header('Location: /home');
-            return;
+if ($users){
+    foreach ($users as $user) {
+        if ($user->username === $username){
+            if ($user->password === $password){
+                $email = $user->email;
+                session_start();
+                $_SESSION["logged"]=[
+                    'UserName' => $user->username,
+                    'Email' => $user->email,
+                    'Password' => $user->password
+                ];
+                header('Location: /home');
+                return;
+            }
+        } else {
+            $message = "User name or Password not correct.";
         }
-    } else {
-        $message = "User name or Password not correct.";
     }
-}
-
-if (!$users){
+} else {
     $message = "User name or Password not correct.";
 }
 
