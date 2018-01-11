@@ -16,7 +16,7 @@ require 'partials/head.php';?>
     <p>E-mail: <?php echo($_SESSION['logged']['Email']); ?></p>
     <p>Password: <?php echo($_SESSION['logged']['Password']); ?></p>
 
-    <button >Logout</button>
+    <a href="/logout">Logout</a>
 
 
 <?php require 'partials/footer.php'; ?>

@@ -6,5 +6,6 @@
  * Time: 13:55
  */
 
+session_start();
 unset($_SESSION["logged"]);
 header("Location: /login");

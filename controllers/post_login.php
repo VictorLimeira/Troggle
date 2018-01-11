@@ -31,4 +31,8 @@ foreach ($users as $user) {
     }
 }
 
+if (!$users){
+    $message = "User name or Password not correct.";
+}
+
 require 'views/login.view.php';
