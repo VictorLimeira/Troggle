@@ -9,6 +9,6 @@
 class SiteController
 {
     public function index(){
-        require 
+        require 'views/index.view.php';
     }
 }

@@ -3,6 +3,7 @@
 /**
  * router class to manage ... routing?!
  */
+
 class Router
 {
 
@@ -31,7 +32,11 @@ class Router
   function direct($uri, $methodType)
   {
     if (array_key_exists($uri, $this->routes[$methodType])) {
-      return $this->routes[$methodType][$uri];
+        $controllerArray = explode("/" , $this->routes[$methodType][$uri]);
+        $controller = $controllerArray[0];
+        $controllerMethod = $controllerArray[1];
+        $classController = new $controller();
+        $classController->$controllerMethod();
     } else {
       throw new Exception("Error Processing Request for uri.", 1);
 
