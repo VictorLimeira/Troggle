@@ -1,8 +1,8 @@
 <?php
 
 $router->get('', 'SiteController/index');
-$router->get('about', 'controllers/about.php');
-$router->get('contact', 'controllers/contact.php');
+$router->get('about', 'SiteController/about');
+$router->get('contact', 'SiteController/contact');
 $router->get('login', 'controllers/login.php');
 $router->post('login', 'controllers/post_login.php');
 $router->get('home', 'controllers/home.php');
