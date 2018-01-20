@@ -44,4 +44,19 @@ class UserController
 
         require 'views/login.view.php';
     }
+
+    public function home(){
+        session_start();
+        if (isset($_SESSION['logged'])){
+            require 'views/home.view.php';
+        } else {
+            header('Location: /login');
+        }
+    }
+
+    public function logout(){
+        session_start();
+        unset($_SESSION["logged"]);
+        header("Location: /login");
+    }
 }
