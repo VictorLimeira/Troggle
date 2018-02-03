@@ -6,17 +6,19 @@
  * Time: 08:04
  */
 
+use App\core\Display as Display;
+
 class SiteController
 {
     public function index(){
-        require '/Users/victor/code/Troggle/business/views/index.view.php';
+        Display::show("index");
     }
 
     public function about(){
-        require '/Users/victor/code/Troggle/business/views/about.view.php';
+        Display::show("about");
     }
 
     public function contact(){
-        require '/Users/victor/code/Troggle/business/views/contact.view.php';
+        Display::show("contact");
     }
 }

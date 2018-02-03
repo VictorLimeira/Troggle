@@ -4,7 +4,7 @@
 
     <form class="" action="/login" method="POST">
 
-        <?php if (isset($message)){ echo $message;} ?><br>
+        <?php if (isset($data)){ echo $data;} ?><br>
 
         <label><b>Username</b></label>
         <input type="text" name="UserName" autofocus="autofocus" value="" placeholder="User name"></input>

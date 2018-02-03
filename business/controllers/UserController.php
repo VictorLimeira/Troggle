@@ -7,11 +7,12 @@
  */
 
 use App\core\App as App;
+use App\core\Display as Display;
 
 class UserController
 {
     public function login(){
-        require '/Users/victor/code/Troggle/business/views/login.view.php';
+        Display::show("login");
     }
 
     public function validate_login(){
@@ -40,17 +41,16 @@ class UserController
                     $message = "User name or Password not correct.";
                 }
             }
-        } else {
-            $message = "User name or Password not correct.";
         }
+        $message = "User name or Password not correct.";
 
-        require '/Users/victor/code/Troggle/business/views/login.view.php';
+        Display::show("login", $message);
     }
 
     public function home(){
         session_start();
         if (isset($_SESSION['logged'])){
-            require '/Users/victor/code/Troggle/business/views/home.view.php';
+            Display::show("home");
         } else {
             header('Location: /login');
         }
