@@ -1,5 +1,7 @@
 <?php
 
+namespace App\core;
+
 class App
 {
 
@@ -14,11 +16,16 @@ class App
     {
         if (! array_key_exists($key, static::$registry_box))
         {
-            throw new Exception('Could not find the key into registry_box.');
+            throw new \Exception('Could not find the key into registry_box.');
         }
         else
         {
             return static::$registry_box[$key];
         }
+    }
+
+    public static function box()
+    {
+        return App::$registry_box;
     }
 }

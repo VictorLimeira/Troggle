@@ -6,10 +6,12 @@
  * Time: 07:30
  */
 
+use App\core\App as App;
+
 class UserController
 {
     public function login(){
-        require 'views/login.view.php';
+        require '/Users/victor/code/Troggle/business/views/login.view.php';
     }
 
     public function validate_login(){
@@ -42,13 +44,13 @@ class UserController
             $message = "User name or Password not correct.";
         }
 
-        require 'views/login.view.php';
+        require '/Users/victor/code/Troggle/business/views/login.view.php';
     }
 
     public function home(){
         session_start();
         if (isset($_SESSION['logged'])){
-            require 'views/home.view.php';
+            require '/Users/victor/code/Troggle/business/views/home.view.php';
         } else {
             header('Location: /login');
         }

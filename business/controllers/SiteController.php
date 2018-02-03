@@ -9,14 +9,14 @@
 class SiteController
 {
     public function index(){
-        require 'views/index.view.php';
+        require '/Users/victor/code/Troggle/business/views/index.view.php';
     }
 
     public function about(){
-        require 'views/about.view.php';
+        require '/Users/victor/code/Troggle/business/views/about.view.php';
     }
 
     public function contact(){
-        require 'views/contact.view.php';
+        require '/Users/victor/code/Troggle/business/views/contact.view.php';
     }
 }
