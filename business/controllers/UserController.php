@@ -19,7 +19,7 @@ class UserController
         $username = $_POST["UserName"];
         $password = $_POST["Password"];
 
-        $message = "";
+        $message = ['message' => ""];
 
         $users = App::get('database')->queryAll('user', 'User');
 
@@ -30,6 +30,7 @@ class UserController
                         $email = $user->email;
                         session_start();
                         $_SESSION["logged"]=[
+                            'id' => $user->id,
                             'UserName' => $user->username,
                             'Email' => $user->email,
                             'Password' => $user->password
@@ -38,22 +39,34 @@ class UserController
                         return;
                     }
                 } else {
-                    $message = "User name or Password not correct.";
+                    $message = ['message' => "User name or Password not correct."];
                 }
             }
         }
-        $message = "User name or Password not correct.";
+        $message = ['message' => "User name or Password not correct."];
 
         Display::show("login", $message);
     }
 
     public function home(){
+
         session_start();
-        if (isset($_SESSION['logged'])){
-            Display::show("home");
-        } else {
+        if (!isset($_SESSION['logged'])){
             header('Location: /login');
         }
+
+        $tasks = [
+            'tasks' => []
+        ];
+
+        foreach (App::get('database')->queryAll('task', 'Task') as $task) {
+            if ($task->user === $_SESSION['logged']['id']) {
+                array_push($tasks['tasks'], $task);
+            }
+        }
+
+
+        Display::show("home", $tasks);
     }
 
     public function logout(){

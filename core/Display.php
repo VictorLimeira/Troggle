@@ -11,7 +11,7 @@ namespace App\core;
 
 class Display
 {
-    public static function show($view, $data)
+    public static function show($view, $data=[])
     {
         $data = $data;
         require dirname(__FILE__)."/../business/views/" . $view . ".view.php";

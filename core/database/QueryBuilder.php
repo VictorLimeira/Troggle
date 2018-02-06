@@ -3,6 +3,7 @@
 /**
  * Build queries onto database
  */
+
 class QueryBuilder
 {
 
@@ -17,7 +18,7 @@ class QueryBuilder
     {
         $statement = $this->pdo->prepare("select * from {$table_name}");
         $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_CLASS, $into_class);
+        return $statement->fetchAll(PDO::FETCH_CLASS, "App\business\models\\".$into_class);
     }
 
     public function addTask($table_name, $description)
