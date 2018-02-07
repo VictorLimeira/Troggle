@@ -19,33 +19,28 @@ class UserController
         $username = $_POST["UserName"];
         $password = $_POST["Password"];
 
-        $message = ['message' => ""];
+        $user = App::get('database')->queryColumn("user", "User", "username", $username);
 
-        $users = App::get('database')->queryAll('user', 'User');
-
-        if ($users){
-            foreach ($users as $user) {
-                if ($user->username === $username){
-                    if ($user->password === $password){
-                        $email = $user->email;
-                        session_start();
-                        $_SESSION["logged"]=[
-                            'id' => $user->id,
-                            'UserName' => $user->username,
-                            'Email' => $user->email,
-                            'Password' => $user->password
-                        ];
-                        header('Location: /home');
-                        return;
-                    }
-                } else {
-                    $message = ['message' => "User name or Password not correct."];
-                }
-            }
+        if (!$user
+            || ($user[0]->username != $username)
+            || ($user[0]->password != $password)) {
+            $message = ['message' => "User name or Password not correct."];
+            Display::show("login", $message);
+            return;
         }
-        $message = ['message' => "User name or Password not correct."];
 
-        Display::show("login", $message);
+        $user = $user[0];
+
+        session_start();
+        $_SESSION["logged"]=[
+            'id' => $user->id,
+            'UserName' => $user->username,
+            'Email' => $user->email,
+            'Password' => $user->password
+        ];
+        header('Location: /home');
+        return;
+
     }
 
     public function home(){
@@ -56,15 +51,8 @@ class UserController
         }
 
         $tasks = [
-            'tasks' => []
+            'tasks' => App::get('database')->queryColumn("task", "Task", "user", $_SESSION['logged']['id'])
         ];
-
-        foreach (App::get('database')->queryAll('task', 'Task') as $task) {
-            if ($task->user === $_SESSION['logged']['id']) {
-                array_push($tasks['tasks'], $task);
-            }
-        }
-
 
         Display::show("home", $tasks);
     }

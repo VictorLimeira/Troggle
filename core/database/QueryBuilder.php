@@ -21,19 +21,10 @@ class QueryBuilder
         return $statement->fetchAll(PDO::FETCH_CLASS, "App\business\models\\".$into_class);
     }
 
-    public function addTask($table_name, $description)
+    public function queryColumn($table_name, $into_class, $column, $value)
     {
-        try{
-            $completed = 0;
-
-            $statement = $this->pdo->prepare("INSERT INTO {$table_name} (description, completed) values (:description, :completed)");
-            $statement->bindParam(':description', $description);
-            $statement->bindParam(':completed', $completed);
-            $statement->execute();
-
-        }catch (PDOException $e)
-        {
-            echo $e->getMessage();
-        }
+        $statement = $this->pdo->prepare("select * from {$table_name} WHERE {$column}=\"{$value}\"");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_CLASS, "App\business\models\\".$into_class);
     }
 }
