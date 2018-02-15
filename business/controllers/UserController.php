@@ -12,7 +12,14 @@ use App\core\Display as Display;
 class UserController
 {
     public function login(){
-        Display::show("login");
+
+        session_start();
+        if (!isset($_SESSION['logged'])){
+            Display::show("login");
+            return;
+        }
+
+        header('Location: /home');
     }
 
     public function validate_login(){

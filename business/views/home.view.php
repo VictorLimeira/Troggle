@@ -21,10 +21,22 @@ require 'partials/head.php';?>
 
     <h1>Atividades</h1>
 
+    <h2>Atividade atual</h2>
+
+    <?php foreach($data['tasks'] as $task) : ?>
+        <?php if(! $task->finished) : ?>
+            <ul><li>
+            <?= $task->description ?> | <?= $task->started ?>
+            </li></ul>
+        <?php endif; ?>
+    <?php endforeach; ?>
+
+    <h2>Todas as atividades</h2>
+
     <ul>
         <?php foreach($data['tasks'] as $task) : ?>
             <li>
-                <?= $task->description ?>
+                <?= $task->description ?> | <?= $task->started ?> | <?= $task->finished ?>
             </li>
         <?php endforeach; ?>
     </ul>
