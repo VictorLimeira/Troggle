@@ -27,4 +27,18 @@ class QueryBuilder
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_CLASS, "App\business\models\\".$into_class);
     }
+
+    public function insertInto($table_name, $columns, $values){
+
+        $statement = $this->pdo->prepare("INSERT INTO {$table_name} (".implode(',', $columns) . ') VALUES '.implode(',', $values));
+        $statement->execute();
+        return;
+    }
+
+    public function updateColumn($table_name, $id, $column, $value){
+
+        $statement = $this->pdo->prepare("UPDATE {$table_name} SET {$column}=\"{$value}\" WHERE id={$id}");
+        $statement->execute();
+        return;
+    }
 }

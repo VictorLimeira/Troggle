@@ -22,6 +22,10 @@ require 'partials/head.php';?>
         <?php if(! $task->finished) : ?>
             <ul><li>
             <?= $task->description ?> | <?= $task->started ?>
+                    <form action = "/end_task" method = "POST">
+                        <input type="number" name="TaskId" value="<?= $task->id ?>" hidden="hidden"></input>
+                        <input type="submit" name="finish task" value="finish task" />
+                    </form>
             </li></ul>
         <?php endif; ?>
     <?php endforeach; ?>

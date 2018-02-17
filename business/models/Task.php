@@ -12,16 +12,28 @@ use App\core\App as App;
 
 class Task
 {
+    public $id;
     public $description;
     public $started;
     public $finished;
     public $user;
 
     public function start(){
+
+        $response = App::get('database')->insertInto("task",
+            ["description", "started", "user"],
+            [$this->description, $this->started, $this->user]);
+
+        if (!$response){
+            echo "Task not inserted";
+        }
+
+        echo "Task inserted successfully";
         return;
     }
 
-    public function end(){
+    public static function end($id){
+        App::get('database')->updateColumn("task", $id, "finished", date("Y-m-d H:i:s"));
         return;
     }
 

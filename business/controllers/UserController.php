@@ -6,7 +6,6 @@
  * Time: 07:30
  */
 
-use App\core\App as App;
 use App\core\Display as Display;
 use App\business\models\User as User;
 use App\business\models\Task as Task;
@@ -22,6 +21,7 @@ class UserController
         }
 
         header('Location: /home');
+        return;
     }
 
     public function validate_login(){
