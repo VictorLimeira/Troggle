@@ -8,6 +8,8 @@
 
 use App\core\App as App;
 use App\core\Display as Display;
+use App\business\models\User as User;
+use App\business\models\Task as Task;
 
 class UserController
 {
@@ -26,17 +28,13 @@ class UserController
         $username = $_POST["UserName"];
         $password = $_POST["Password"];
 
-        $user = App::get('database')->queryColumn("user", "User", "username", $username);
+        $user = User::validate_login($username, $password);
 
-        if (!$user
-            || ($user[0]->username != $username)
-            || ($user[0]->password != $password)) {
+        if (!$user) {
             $message = ['message' => "User name or Password not correct."];
             Display::show("login", $message);
             return;
         }
-
-        $user = $user[0];
 
         session_start();
         $_SESSION["logged"]=[
@@ -58,15 +56,17 @@ class UserController
         }
 
         $tasks = [
-            'tasks' => App::get('database')->queryColumn("task", "Task", "user", $_SESSION['logged']['id'])
+            'tasks' => Task::get_all($_SESSION['logged']['id'])
         ];
 
         Display::show("home", $tasks);
+        return;
     }
 
     public function logout(){
         session_start();
         unset($_SESSION["logged"]);
         header("Location: /login");
+        return;
     }
 }

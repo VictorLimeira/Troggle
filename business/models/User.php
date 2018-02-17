@@ -7,6 +7,7 @@
  */
 
 namespace App\business\models;
+use App\core\App as App;
 
 class User
 {
@@ -14,5 +15,20 @@ class User
     public $email;
     public $username;
     public $password;
+
+    public static function validate_login($username, $password){
+
+        $user = App::get('database')->queryColumn("user", "User", "username", $username);
+
+        if (!$user
+            || ($user[0]->username != $username)
+            || ($user[0]->password != $password)) {
+            return false;
+        }
+
+        $user = $user[0];
+
+        return $user;
+    }
 
 }

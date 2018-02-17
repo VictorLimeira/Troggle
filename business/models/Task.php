@@ -7,6 +7,7 @@
  */
 
 namespace App\business\models;
+use App\core\App as App;
 
 
 class Task
@@ -15,4 +16,28 @@ class Task
     public $started;
     public $finished;
     public $user;
+
+    public function start(){
+        return;
+    }
+
+    public function end(){
+        return;
+    }
+
+    public function delete(){
+        return;
+    }
+
+    public static function get_all($user){
+
+        $tasks = App::get('database')->queryColumn("task", "Task", "user", $user);
+
+        if (!$tasks){
+            return [];
+        }
+
+        return $tasks;
+
+    }
 }
