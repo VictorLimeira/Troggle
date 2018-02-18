@@ -21,7 +21,6 @@ class TaskController
     }
 
     public function end_task(){
-
         $id = $_POST["TaskId"];
         Task::end($id);
         header('Location: /home');
@@ -29,6 +28,9 @@ class TaskController
     }
 
     public function delete_task(){
+        $id = $_POST["TaskId"];
+        Task::delete($id);
+        header('Location: /home');
         return;
     }
 

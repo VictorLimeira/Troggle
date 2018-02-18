@@ -37,7 +37,8 @@ class Task
         return;
     }
 
-    public function delete(){
+    public static function delete($id){
+        App::get('database')->deleteRow("task", $id);
         return;
     }
 
