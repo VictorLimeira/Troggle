@@ -18,17 +18,17 @@ class Task
     public $finished;
     public $user;
 
-    public function start(){
+    public function __construct($description="", $started="", $user="") {
+        $this->description = $description;
+        $this->started = $started;
+        $this->user = intval($user);
+    }
 
-        $response = App::get('database')->insertInto("task",
+    public function start(){
+        App::get('database')->insertInto("task",
             ["description", "started", "user"],
             [$this->description, $this->started, $this->user]);
 
-        if (!$response){
-            echo "Task not inserted";
-        }
-
-        echo "Task inserted successfully";
         return;
     }
 
@@ -51,5 +51,17 @@ class Task
 
         return $tasks;
 
+    }
+
+    public static function unfinished($user){
+        $tasks = App::get('database')->queryColumn("task", "Task", "user", $user);
+
+        foreach ($tasks as $task){
+            if (!$task->finished){
+                return $task;
+            }
+        }
+
+        return false;
     }
 }

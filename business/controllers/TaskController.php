@@ -12,6 +12,11 @@ class TaskController
 {
 
     public function start_task(){
+
+        session_start();
+        $task = new Task($_POST["description"], date("Y-m-d H:i:s"), $_SESSION['logged']['id']);
+        $task->start();
+        header('Location: /home');
         return;
     }
 
@@ -20,6 +25,10 @@ class TaskController
         $id = $_POST["TaskId"];
         Task::end($id);
         header('Location: /home');
+        return;
+    }
+
+    public function delete_task(){
         return;
     }
 

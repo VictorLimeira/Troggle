@@ -56,8 +56,8 @@ class UserController
         }
 
         $tasks = [
-            'tasks' => Task::get_all($_SESSION['logged']['id'])
-        ];
+            'tasks' => Task::get_all($_SESSION['logged']['id']),
+            'unfinished' => Task::unfinished($_SESSION['logged']['id'])];
 
         Display::show("home", $tasks);
         return;

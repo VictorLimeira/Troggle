@@ -18,19 +18,19 @@ class QueryBuilder
     {
         $statement = $this->pdo->prepare("select * from {$table_name}");
         $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_CLASS, "App\business\models\\".$into_class);
+        return $statement->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "App\business\models\\".$into_class);
     }
 
     public function queryColumn($table_name, $into_class, $column, $value)
     {
         $statement = $this->pdo->prepare("select * from {$table_name} WHERE {$column}=\"{$value}\"");
         $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_CLASS, "App\business\models\\".$into_class);
+        return $statement->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "App\business\models\\".$into_class);
     }
 
     public function insertInto($table_name, $columns, $values){
 
-        $statement = $this->pdo->prepare("INSERT INTO {$table_name} (".implode(',', $columns) . ') VALUES '.implode(',', $values));
+        $statement = $this->pdo->prepare("INSERT INTO {$table_name} (".implode(',', $columns) . ') VALUES ("'.implode('","', $values) . '")');
         $statement->execute();
         return;
     }
