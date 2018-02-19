@@ -11,6 +11,9 @@
         <!-- Custom styles for sticky footer -->
         <link href="./business/views/resources/sticky-footer.css" rel="stylesheet">
 
+        <!-- Custom styles for float labels -->
+        <link href="./business/views/resources/floating-labels.css" rel="stylesheet">
+
         <title>TTroggle - track tasks</title>
     </head>
     <body>

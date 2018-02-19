@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Toggl</h5>
                     <p class="card-text">Insanely simple time tracking, Toggl kills timesheets.</p>
-                    <a href="https://toggl.com/" class="btn btn-danger">Toggl</a>
+                    <a href="https://toggl.com/" target="_blank" class="btn btn-danger">Toggl</a>
                 </div>
             </div>
         </div>
