@@ -14,7 +14,6 @@ class UserController
 {
     public function login(){
 
-        session_start();
         if (!isset($_SESSION['logged'])){
             Display::show("login");
             return;
@@ -36,7 +35,6 @@ class UserController
             return;
         }
 
-        session_start();
         $_SESSION["logged"]=[
             'id' => $user->id,
             'UserName' => $user->username,
@@ -50,7 +48,6 @@ class UserController
 
     public function home(){
 
-        session_start();
         if (!isset($_SESSION['logged'])){
             header('Location: /login');
         }
@@ -64,7 +61,7 @@ class UserController
     }
 
     public function logout(){
-        session_start();
+
         unset($_SESSION["logged"]);
         header("Location: /login");
         return;
