@@ -7,11 +7,7 @@
  */
 
 require 'partials/head.php';?>
-
-    <p>Welcome, <?php echo($_SESSION['logged']['UserName']); ?>.</p>
-    <p><?= $today = date("Y-m-d H:i:s"); ?></p>
-
-    <a href="/logout">Logout</a>
+<main role="main" class="container">
 
     <h1>Troggle Tasks</h1>
 
@@ -20,8 +16,7 @@ require 'partials/head.php';?>
         <form class="" action="/start_task" method="POST">
             <input type="text" name="description" autofocus="autofocus" placeholder="Task description"></input>
 
-            <button type="submit">Start Task</button>
-
+            <button class="btn btn-info" type="submit">Start task</button>
         </form>
     <?php endif; ?>
 
@@ -31,7 +26,7 @@ require 'partials/head.php';?>
             <?= $data['unfinished']->description ?> | <?= $data['unfinished']->started ?>
             <form action = "/end_task" method = "POST">
                 <input type="number" name="TaskId" value="<?= $data['unfinished']->id ?>" hidden="hidden"></input>
-                <input type="submit" name="finish task" value="finish task" />
+                <button class="btn btn-info" type="submit">Finish</button>
             </form>
         </li></ul>
     <?php endif; ?>
@@ -42,12 +37,16 @@ require 'partials/head.php';?>
             <p>
                 <form action = "/delete_task" method = "POST">
                     <input type="number" name="TaskId" value="<?= $task->id ?>" hidden="hidden"></input>
-                    <input type="submit" name="delete task" value="delete task" />
-                    <?= $task->description ?> | <?= $task->started ?> | <?= $task->finished ?>
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                    <?= $task->description ?> -
+                    <?php
+                        $interval = date_diff(new DateTime($task->started), new DateTime($task->finished));
+                        echo($interval->format('%H:%I:%S'));
+                    ?>
                 </form>
             </p>
         <?php endforeach; ?>
-
+</main>
 
 <?php require 'partials/footer.php'; ?>
 

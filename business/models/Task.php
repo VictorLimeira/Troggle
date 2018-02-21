@@ -50,7 +50,7 @@ class Task
             return [];
         }
 
-        return $tasks;
+        return array_reverse($tasks);
 
     }
 

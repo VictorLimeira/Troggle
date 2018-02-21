@@ -15,9 +15,24 @@
             <li class="nav-item">
                 <a class="nav-link" href="/contact">Contact</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-            </li>
+
+            <?php if (!isset($_SESSION['logged'])){ ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+            <?php }else{ ?>
+                <li class="nav-item dropdown ml-4">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="float-left mr-2"><img src="./../business/views/resources/open-iconic/svg/person.svg" alt="Account"></span><?=($_SESSION['logged']['UserName']); ?>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Settings<span class="float-right"><img src="./../business/views/resources/open-iconic/svg/cog.svg" alt="Settings"></span></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item font-weight-bold" href="/logout">Logout<span class="float-right"><img src="./../business/views/resources/open-iconic/svg/account-logout.svg" alt="logout"></span></a>
+                    </div>
+                </li>
+            <?php }; ?>
+
         </ul>
     </div>
 </nav>
